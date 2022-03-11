@@ -17,7 +17,7 @@ const RoutesDrawer = () => {
                     key={name}
                     name={name}
                     options={options}
-                    children={(props) => <Component {...props} onTokenSet={setToken} />}
+                    children={(props) => <Component {...props} onTokenSet={setToken} token={token} />}
                 />
             );
         }

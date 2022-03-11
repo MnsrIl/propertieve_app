@@ -24,3 +24,5 @@ const fetchProperties = async (token: string) => {
         throw e;
     }
 }
+
+export { fetchProperties }

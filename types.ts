@@ -18,5 +18,6 @@ export interface DrawerRoute {
 }
 
 export type NavigationProps<T extends keyof DrawerParamList> = DrawerScreenProps<DrawerParamList, T> & {
-    onTokenSet: (newTokenValue: string) => void
+    onTokenSet: (newTokenValue: string) => void;
+    token: string;
 }
