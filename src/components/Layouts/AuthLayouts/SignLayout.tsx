@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { GestureResponderEvent, TextInput } from "react-native";
 import { AuthLayout } from "./AuthLayout";
 import { Link } from "../../Link";
@@ -9,16 +9,16 @@ type SignTitles = "Sign In" | "Sign Up";
 
 interface SignLayoutProps {
     title: SignTitles;
-    loading?: boolean,
-    toastMessage: string,
-    toastVariant: ToastVariants,
+    loading?: boolean;
+    toastMessage: string;
+    toastVariant: ToastVariants;
 
-    defaultEmail?: string,
-    defaultPassword?: string,
+    defaultEmail?: string;
+    defaultPassword?: string;
     onPress?: (event: GestureResponderEvent) => void;
     onCaptionClick?: () => void;
     onChangeEmail: (newValue: string) => void;
-    onChangePassword: (newValue: string) => void
+    onChangePassword: (newValue: string) => void;
 }
 
 const getCaptionTitle = (title: SignTitles) => {
@@ -26,7 +26,7 @@ const getCaptionTitle = (title: SignTitles) => {
     const signInCaption = "I already have an account";
 
     return title === "Sign In" ? signUpCaption : signInCaption;
-}
+};
 
 const placeholderColor = "#87afd3";
 
@@ -40,37 +40,38 @@ const SignLayout = ({
     toastMessage,
     toastVariant,
     defaultEmail = "",
-    defaultPassword = ""
+    defaultPassword = "",
 }: SignLayoutProps) => {
     const [email, setEmail] = React.useState(defaultEmail);
     const [password, setPassword] = React.useState(defaultPassword);
 
-    const passwordInputRef = React.useRef<TextInput|null>(null);
+    const passwordInputRef = React.useRef<TextInput | null>(null);
 
     const handleChangeEmail = (text: string) => {
         setEmail(text);
         onChangeEmail(text);
-    }
+    };
 
     const handleChangePassword = (text: string) => {
         setPassword(text);
         onChangePassword(text);
-    }
+    };
 
-    React.useEffect(() => () => {
-        setEmail("");
-        setPassword("");
-    }, []);
+    React.useEffect(
+        () => () => {
+            setEmail("");
+            setPassword("");
+        },
+        []
+    );
 
     const renderEmailInput = () => (
         <Input
             returnKeyType="next"
             onSubmitEditing={() => passwordInputRef?.current?.focus()}
             blurOnSubmit={false}
-
             value={email}
             onChangeText={handleChangeEmail}
-
             placeholder="Email"
             placeholderTextColor={placeholderColor}
         />
@@ -79,18 +80,16 @@ const SignLayout = ({
     const renderPasswordInput = () => (
         <Input
             ref={passwordInputRef}
-
             value={password}
             onChangeText={handleChangePassword}
-
             placeholder="Password"
             placeholderTextColor={placeholderColor}
         />
     );
 
     const renderActionMessage = () => {
-        return <Toast message={toastMessage} show variant={toastVariant}  />
-    }
+        return <Toast message={toastMessage} show variant={toastVariant} />;
+    };
 
     return (
         <AuthLayout
@@ -104,9 +103,7 @@ const SignLayout = ({
             title={title}
             actionButtonTitle={title}
             actionButtonDisabled={loading}
-            additionalCaption={
-                <Link onPress={onCaptionClick}>{getCaptionTitle(title)}</Link>
-            }
+            additionalCaption={<Link onPress={onCaptionClick}>{getCaptionTitle(title)}</Link>}
             onPressAction={onPress}
         />
     );

@@ -11,7 +11,7 @@ const routes: DrawerRoute[] = [
         options: {
             drawerLabel: "Sign In",
             headerShown: false,
-        }
+        },
     },
     {
         name: "SignUp",
@@ -20,7 +20,7 @@ const routes: DrawerRoute[] = [
         options: {
             drawerLabel: "Sign Up",
             headerShown: false,
-        }
+        },
     },
     {
         name: "Properties",
@@ -31,17 +31,16 @@ const routes: DrawerRoute[] = [
             headerLeft: () => null,
             drawerLabel: "Properties",
             swipeEnabled: false,
-        }
-    }
+        },
+    },
 ];
 
 const filterRoutes = (token: string) => {
     return routes.filter(({ access }) => {
-        if (access === "none")
-            return true;
+        if (access === "none") return true;
 
         return token ? access === "in" : access === "out";
     });
-}
+};
 
 export { routes, filterRoutes };

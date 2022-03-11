@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react";
 import { FlatList } from "react-native";
+import { useDispatch } from "react-redux";
 import { Layout } from "../../components/Layouts/DefaultLayout";
 import { LogOutIcon } from "../../components/Icons/LogOutIcon";
 import { PropertyCard } from "../../components/PropertyCard";
 import { NavigationProps } from "../../../types";
-import { fetchProperties } from "../../api";
+import { useTSelector } from "../../store/hooks";
+import { fetchProperties, selectProperties } from "../../store/features/properties";
 
 const horizontalPadding = { paddingRight: 0, paddingLeft: 0 };
 
@@ -16,23 +18,18 @@ export interface Property {
 }
 
 const Properties = ({ navigation, onTokenSet, token }: NavigationProps<"Properties">) => {
-    const [properties, setProperties] = React.useState<Property[]>([]);
+    const dispatch = useDispatch();
+    const data = useTSelector(selectProperties);
 
     const handleClearToken = () => onTokenSet("");
 
-    const handleLoadProperties = () => {
-        fetchProperties(token).then(({ data, error }) => {
-            if (data) setProperties(data);
-        });
-    };
-
     React.useEffect(() => {
-        handleLoadProperties()
+        dispatch(fetchProperties(token));
     }, []);
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
-            headerRight: () => <LogOutIcon onPress={handleClearToken} />
+            headerRight: () => <LogOutIcon onPress={handleClearToken} />,
         });
     });
 
@@ -40,14 +37,14 @@ const Properties = ({ navigation, onTokenSet, token }: NavigationProps<"Properti
         <Layout style={horizontalPadding}>
             <FlatList
                 numColumns={2}
-                data={properties}
-                renderItem={({ item }) =>
+                data={data}
+                renderItem={({ item }) => (
                     <PropertyCard
                         desc={item.description}
                         title={item.title}
                         imgSrc={item.preview}
                     />
-            }
+                )}
                 keyExtractor={({ _id }) => _id}
             />
         </Layout>

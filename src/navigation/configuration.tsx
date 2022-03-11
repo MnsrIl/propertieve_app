@@ -11,29 +11,26 @@ const RoutesDrawer = () => {
 
     const renderRoutesList = (list: typeof routes) => {
         const renderRouteScreen = ({ name, options, component: Component }: DrawerRoute) => {
-
             return (
                 <Screen
                     key={name}
                     name={name}
                     options={options}
-                    children={(props) => <Component {...props} onTokenSet={setToken} token={token} />}
+                    children={(props) => (
+                        <Component {...props} onTokenSet={setToken} token={token} />
+                    )}
                 />
             );
-        }
+        };
 
         return list.map(renderRouteScreen);
-    }
+    };
 
     React.useEffect(() => {
         setRenderList(filterRoutes(token));
     }, [token]);
 
-    return (
-        <Navigator initialRouteName="SignIn">
-            {renderRoutesList(renderList)}
-        </Navigator>
-    );
-}
+    return <Navigator initialRouteName="SignIn">{renderRoutesList(renderList)}</Navigator>;
+};
 
-export { RoutesDrawer }
+export { RoutesDrawer };

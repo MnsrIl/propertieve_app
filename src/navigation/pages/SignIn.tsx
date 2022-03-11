@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { NavigationProps } from "../../../types";
 import { SignLayout } from "../../components/Layouts/AuthLayouts/SignLayout";
 import { ToastVariants } from "../../components/Toast";
@@ -12,7 +12,7 @@ const SignIn = ({ navigation, onTokenSet }: NavigationProps<"SignIn">) => {
     const [signingIn, setSigningIn] = React.useState(false);
 
     const handleSubmit = async () => {
-        setToastInfo({...toastInfo, message: "" });
+        setToastInfo({ ...toastInfo, message: "" });
 
         if (!email || !password) {
             setToastInfo({ ...toastInfo, message: "You have to provide an email and password" });
@@ -29,7 +29,7 @@ const SignIn = ({ navigation, onTokenSet }: NavigationProps<"SignIn">) => {
                 body: JSON.stringify(credentials),
                 headers: {
                     "Content-Type": "application/json",
-                }
+                },
             });
             const data = await response.json();
 
@@ -45,7 +45,7 @@ const SignIn = ({ navigation, onTokenSet }: NavigationProps<"SignIn">) => {
         } finally {
             setSigningIn(false);
         }
-    }
+    };
 
     return (
         <SignLayout
@@ -59,7 +59,6 @@ const SignIn = ({ navigation, onTokenSet }: NavigationProps<"SignIn">) => {
             onPress={handleSubmit}
         />
     );
-}
-
+};
 
 export { SignIn };

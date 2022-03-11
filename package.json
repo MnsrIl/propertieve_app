@@ -1,5 +1,5 @@
 {
-  "name": "login-native",
+  "name": "properties-shop",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-navigation/drawer": "^6.3.1",
     "@react-navigation/native": "^6.0.8",
     "expo": "~44.0.0",
@@ -22,6 +23,9 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
@@ -30,6 +34,7 @@
     "@types/react-native": "~0.64.12",
     "@types/styled-components": "^5.1.24",
     "@types/styled-components-react-native": "^5.1.3",
+    "prettier": "^2.5.1",
     "typescript": "~4.3.5"
   },
   "private": true

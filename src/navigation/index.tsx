@@ -5,7 +5,6 @@ import { RoutesDrawer } from "./configuration";
 import { Layout } from "../components/Layouts/DefaultLayout";
 
 const Navigation = () => {
-
     const renderFallback = () => (
         <Layout>
             <Text>Loading...</Text>

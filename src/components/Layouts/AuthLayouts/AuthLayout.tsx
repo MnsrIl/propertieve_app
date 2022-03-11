@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { GestureResponderEvent, StatusBar } from "react-native";
 import { Layout } from "../DefaultLayout";
 import { Group } from "../../Group";
@@ -8,7 +8,7 @@ import { Button } from "../../Button";
 interface AuthLayout {
     title: string;
     groupItems: React.ReactNode;
-    additionalCaption?: React.ReactNode
+    additionalCaption?: React.ReactNode;
 
     ActionButton?: React.ReactNode;
     actionButtonTitle?: string;
@@ -23,9 +23,8 @@ const AuthLayout = ({
     actionButtonTitle,
     actionButtonDisabled = false,
     onPressAction,
-    additionalCaption
+    additionalCaption,
 }: AuthLayout) => {
-
     const LayoutStyle = { paddingBottom: StatusBar.currentHeight };
     const TitleStyle = { paddingTop: 60, marginBottom: -50 };
 
@@ -36,13 +35,15 @@ const AuthLayout = ({
                 {groupItems}
                 {additionalCaption}
             </Group>
-            {ActionButton ? ActionButton :
+            {ActionButton ? (
+                ActionButton
+            ) : (
                 <Button
                     disabled={actionButtonDisabled}
                     title={actionButtonTitle || ""}
                     onPress={onPressAction}
                 />
-            }
+            )}
         </Layout>
     );
 };

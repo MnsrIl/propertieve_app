@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { NavigationProps } from "../../../types";
 import { SignLayout } from "../../components/Layouts/AuthLayouts/SignLayout";
 import { ToastVariants } from "../../components/Toast";
@@ -14,7 +14,7 @@ const SignUp = ({ navigation }: NavigationProps<"SignUp">) => {
     const navigateToSignIn = () => navigation.navigate("SignIn");
 
     const handleSubmit = async () => {
-        setToastInfo({...toastInfo, message: "" });
+        setToastInfo({ ...toastInfo, message: "" });
 
         if (!email || !password) {
             setToastInfo({ ...toastInfo, message: "You have to provide an email and password" });
@@ -31,7 +31,7 @@ const SignUp = ({ navigation }: NavigationProps<"SignUp">) => {
                 body: JSON.stringify(credentials),
                 headers: {
                     "Content-Type": "application/json",
-                }
+                },
             });
             const data = await response.json();
 
@@ -46,20 +46,20 @@ const SignUp = ({ navigation }: NavigationProps<"SignUp">) => {
         } finally {
             setSigningUp(false);
         }
-    }
+    };
 
     return (
-      <SignLayout
-          loading={signingUp}
-          toastVariant={toastInfo.variant as ToastVariants}
-          toastMessage={toastInfo.message}
-          title="Sign Up"
-          onChangeEmail={setEmail}
-          onChangePassword={setPassword}
-          onCaptionClick={() => navigateToSignIn()}
-          onPress={handleSubmit}
-      />
+        <SignLayout
+            loading={signingUp}
+            toastVariant={toastInfo.variant as ToastVariants}
+            toastMessage={toastInfo.message}
+            title="Sign Up"
+            onChangeEmail={setEmail}
+            onChangePassword={setPassword}
+            onCaptionClick={() => navigateToSignIn()}
+            onPress={handleSubmit}
+        />
     );
-}
+};
 
 export { SignUp };
