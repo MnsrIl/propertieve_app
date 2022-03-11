@@ -3,11 +3,15 @@ import { GestureResponderEvent, TextInput } from "react-native";
 import { AuthLayout } from "./AuthLayout";
 import { Link } from "../../Link";
 import { Input } from "../../Input";
+import { Toast, ToastVariants } from "../../Toast";
 
 type SignTitles = "Sign In" | "Sign Up";
 
 interface SignLayoutProps {
     title: SignTitles;
+    loading?: boolean,
+    toastMessage: string,
+    toastVariant: ToastVariants,
 
     defaultEmail?: string,
     defaultPassword?: string,
@@ -28,10 +32,13 @@ const placeholderColor = "#87afd3";
 
 const SignLayout = ({
     title,
+    loading,
     onPress,
     onCaptionClick,
     onChangeEmail,
     onChangePassword,
+    toastMessage,
+    toastVariant,
     defaultEmail = "",
     defaultPassword = ""
 }: SignLayoutProps) => {
@@ -81,16 +88,22 @@ const SignLayout = ({
         />
     );
 
+    const renderActionMessage = () => {
+        return <Toast message={toastMessage} show variant={toastVariant}  />
+    }
+
     return (
         <AuthLayout
             groupItems={
                 <>
+                    {renderActionMessage()}
                     {renderEmailInput()}
                     {renderPasswordInput()}
                 </>
             }
             title={title}
             actionButtonTitle={title}
+            actionButtonDisabled={loading}
             additionalCaption={
                 <Link onPress={onCaptionClick}>{getCaptionTitle(title)}</Link>
             }

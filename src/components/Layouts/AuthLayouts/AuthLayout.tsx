@@ -12,6 +12,7 @@ interface AuthLayout {
 
     ActionButton?: React.ReactNode;
     actionButtonTitle?: string;
+    actionButtonDisabled?: boolean;
     onPressAction?: (event: GestureResponderEvent) => void;
 }
 
@@ -20,20 +21,28 @@ const AuthLayout = ({
     groupItems,
     ActionButton,
     actionButtonTitle,
+    actionButtonDisabled = false,
     onPressAction,
     additionalCaption
 }: AuthLayout) => {
 
     const LayoutStyle = { paddingBottom: StatusBar.currentHeight };
+    const TitleStyle = { paddingTop: 60, marginBottom: -50 };
 
     return (
         <Layout style={LayoutStyle}>
-            <Title>{title}</Title>
+            <Title style={TitleStyle}>{title}</Title>
             <Group>
                 {groupItems}
                 {additionalCaption}
             </Group>
-            {ActionButton ? ActionButton : <Button title={actionButtonTitle || ""} onPress={onPressAction} /> }
+            {ActionButton ? ActionButton :
+                <Button
+                    disabled={actionButtonDisabled}
+                    title={actionButtonTitle || ""}
+                    onPress={onPressAction}
+                />
+            }
         </Layout>
     );
 };

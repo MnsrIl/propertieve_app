@@ -1,9 +1,9 @@
-import styled from "styled-components/native";
-import { TouchableOpacityProps } from "react-native";
 import React from "react";
+import { TouchableOpacityProps } from "react-native";
+import styled from "styled-components/native";
 
 const StyledButton = styled.TouchableOpacity`
-  background: #3e87c2;
+  background: ${props => props.disabled ? "gray" : "#3e87c2"};
   border-radius: 10px;
   width: 100%;
   padding: 10px 20px;
