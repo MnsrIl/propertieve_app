@@ -8,30 +8,20 @@ import { selectToken } from "../store/features/auth";
 const { Navigator, Screen } = createDrawerNavigator<DrawerParamList>();
 
 const RoutesDrawer = () => {
-    const _token = useTSelector(selectToken);
-    const [token, setToken] = React.useState("");
-    const [renderList, setRenderList] = React.useState<DrawerRoute[]>(filterRoutes(_token));
+    const token = useTSelector(selectToken);
+    const [renderList, setRenderList] = React.useState<DrawerRoute[]>(filterRoutes(token));
 
     const renderRoutesList = (list: typeof routes) => {
-        const renderRouteScreen = ({ name, options, component: Component }: DrawerRoute) => {
-            return (
-                <Screen
-                    key={name}
-                    name={name}
-                    options={options}
-                    children={(props) => (
-                        <Component {...props} onTokenSet={setToken} token={token} />
-                    )}
-                />
-            );
+        const renderRouteScreen = ({ name, options, component }: DrawerRoute) => {
+            return <Screen key={name} name={name} options={options} component={component} />;
         };
 
         return list.map(renderRouteScreen);
     };
 
     React.useEffect(() => {
-        setRenderList(filterRoutes(_token));
-    }, [_token]);
+        setRenderList(filterRoutes(token));
+    }, [token]);
 
     return <Navigator initialRouteName="SignIn">{renderRoutesList(renderList)}</Navigator>;
 };

@@ -1,17 +1,36 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { NavigationProps } from "../../../types";
 import { SignLayout } from "../../components/Layouts/AuthLayouts/SignLayout";
 import { ToastVariants } from "../../components/Toast";
 import { BASE_API } from "../../utils/constants";
+import { AUTH_CLEAR_ERRORS, selectAuthActionInfo, signUp } from "../../store/features/auth";
+import { useTSelector } from "../../store/hooks";
 
 const SignUp = ({ navigation }: NavigationProps<"SignUp">) => {
+    const dispatch = useDispatch();
+    const signingUpInfo = useTSelector(selectAuthActionInfo);
+
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     const [toastInfo, setToastInfo] = React.useState({ message: "", variant: "error" });
     const [signingUp, setSigningUp] = React.useState(false);
 
-    const navigateToSignIn = () => navigation.navigate("SignIn");
+    const navigateToSignIn = (): void => navigation.navigate("SignIn");
+
+    const handleSubmitPress = () => {
+        setToastInfo({ ...toastInfo, message: "" });
+
+        if (!email || !password) {
+            setToastInfo({ ...toastInfo, message: "You have to provide an email and password" });
+            return;
+        }
+
+        const credentials = { email, password };
+
+        dispatch(signUp(credentials, navigateToSignIn));
+    };
 
     const handleSubmit = async () => {
         setToastInfo({ ...toastInfo, message: "" });
@@ -48,16 +67,23 @@ const SignUp = ({ navigation }: NavigationProps<"SignUp">) => {
         }
     };
 
+    React.useEffect(() => {
+        if (signingUpInfo.error) {
+            setToastInfo({ ...toastInfo, message: signingUpInfo.error });
+            dispatch(AUTH_CLEAR_ERRORS);
+        }
+    }, [signingUpInfo.error]);
+
     return (
         <SignLayout
-            loading={signingUp}
+            loading={signingUpInfo.loading}
             toastVariant={toastInfo.variant as ToastVariants}
             toastMessage={toastInfo.message}
             title="Sign Up"
             onChangeEmail={setEmail}
             onChangePassword={setPassword}
             onCaptionClick={() => navigateToSignIn()}
-            onPress={handleSubmit}
+            onPress={handleSubmitPress}
         />
     );
 };

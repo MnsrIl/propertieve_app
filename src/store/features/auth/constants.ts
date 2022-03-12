@@ -10,6 +10,10 @@ export const AUTH_SIGNUP_TYPES = {
     fulfilled: "auth/signup/fulfilled",
 };
 
+export const AUTH_CLEAR_ERRORS = {
+    type: "auth/clearErrors",
+};
+
 export const AUTH_SIGNOUT = {
     type: "auth/signout",
 };

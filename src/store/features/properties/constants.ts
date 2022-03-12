@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { Property } from "../../../navigation/pages/Properties";
+import { Property } from "../../../../types";
 
 export const FETCH_PROPERTIES_TYPES = {
     pending: "properties/fetchProperties/pending",

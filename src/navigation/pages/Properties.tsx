@@ -8,13 +8,6 @@ import { fetchProperties, selectProperties } from "../../store/features/properti
 
 const horizontalPadding = { paddingRight: 0, paddingLeft: 0 };
 
-export interface Property {
-    _id: string;
-    preview: string;
-    title: string;
-    description: string;
-}
-
 const Properties = () => {
     const dispatch = useDispatch();
     const data = useTSelector(selectProperties);

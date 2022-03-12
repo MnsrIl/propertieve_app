@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { AuthState, RootState } from "../../types";
-import { AUTH_SIGNIN_TYPES, AUTH_SIGNUP_TYPES, AUTH_SIGNOUT } from "./constants";
+import { AUTH_SIGNIN_TYPES, AUTH_SIGNUP_TYPES, AUTH_SIGNOUT, AUTH_CLEAR_ERRORS } from "./constants";
 
 const initialState: AuthState = {
     token: "",
@@ -10,6 +10,8 @@ const initialState: AuthState = {
 
 const reducer = (state = initialState, action: AnyAction): AuthState => {
     switch (action.type) {
+        case AUTH_CLEAR_ERRORS.type:
+            return { ...state, error: null };
         case AUTH_SIGNOUT.type:
             return { ...state, token: "" };
 

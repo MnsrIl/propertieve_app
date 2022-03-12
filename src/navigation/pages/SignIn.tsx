@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavigationProps } from "../../../types";
 import { SignLayout } from "../../components/Layouts/AuthLayouts/SignLayout";
 import { ToastVariants } from "../../components/Toast";
-import { selectAuthActionInfo, signIn } from "../../store/features/auth";
+import { AUTH_CLEAR_ERRORS, selectAuthActionInfo, signIn } from "../../store/features/auth";
 import { useTSelector } from "../../store/hooks";
 
 const SignIn = ({ navigation }: NavigationProps<"SignIn">) => {
@@ -15,7 +15,7 @@ const SignIn = ({ navigation }: NavigationProps<"SignIn">) => {
 
     const [toastInfo, setToastInfo] = React.useState({ message: "", variant: "error" });
 
-    const handlePressSubmit = async () => {
+    const handleSubmit = async () => {
         setToastInfo({ ...toastInfo, message: "" });
 
         if (!email || !password) {
@@ -33,6 +33,7 @@ const SignIn = ({ navigation }: NavigationProps<"SignIn">) => {
     React.useEffect(() => {
         if (signingInfo.error) {
             setToastInfo({ ...toastInfo, message: signingInfo.error });
+            dispatch(AUTH_CLEAR_ERRORS);
         }
     }, [signingInfo.error]);
 
@@ -45,7 +46,7 @@ const SignIn = ({ navigation }: NavigationProps<"SignIn">) => {
             onChangeEmail={setEmail}
             onChangePassword={setPassword}
             onCaptionClick={() => navigation.navigate("SignUp")}
-            onPress={handlePressSubmit}
+            onPress={handleSubmit}
         />
     );
 };

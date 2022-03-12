@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { FETCH_PROPERTIES_TYPES } from "./constants";
 import { PropertiesState, RootState } from "../../types";
-import { Property } from "../../../navigation/pages/Properties";
+import { Property } from "../../../../types";
 
 const initialState: PropertiesState = {
     data: [],

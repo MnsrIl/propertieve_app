@@ -3,7 +3,7 @@ import { AUTH_SIGNUP, AUTH_SIGNIN } from "./constants";
 import * as api from "../../../api";
 import { AuthDTO } from "../../types";
 
-const signUp = (authData: AuthDTO) => async (dispatch: Dispatch) => {
+const signUp = (authData: AuthDTO, navigateTo: () => void) => async (dispatch: Dispatch) => {
     dispatch(AUTH_SIGNUP.pending);
 
     const { error } = await api.signUp(authData);
@@ -11,6 +11,10 @@ const signUp = (authData: AuthDTO) => async (dispatch: Dispatch) => {
     const finalAction = error ? AUTH_SIGNUP.rejected(error) : AUTH_SIGNUP.fulfilled;
 
     dispatch(finalAction);
+
+    if (!error) {
+        navigateTo();
+    }
 };
 
 const signIn = (authData: AuthDTO) => async (dispatch: Dispatch) => {
