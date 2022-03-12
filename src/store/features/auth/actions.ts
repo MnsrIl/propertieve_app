@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import { AUTH_SIGNUP, AUTH_SIGNIN } from "./constants";
 import * as api from "../../../api";
 import { AuthDTO } from "../../types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const signUp = (authData: AuthDTO, navigateTo: () => void) => async (dispatch: Dispatch) => {
     dispatch(AUTH_SIGNUP.pending);
@@ -25,6 +26,10 @@ const signIn = (authData: AuthDTO) => async (dispatch: Dispatch) => {
     const finalAction = error ? AUTH_SIGNIN.rejected(error) : AUTH_SIGNIN.fulfilled(data);
 
     dispatch(finalAction);
+
+    if (data) {
+        await AsyncStorage.setItem("token", data);
+    }
 };
 
 export { signIn, signUp };

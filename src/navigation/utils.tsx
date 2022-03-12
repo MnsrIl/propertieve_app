@@ -1,4 +1,5 @@
 import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DrawerRoute } from "../../types";
 import { Properties, SignIn, SignUp } from "./pages";
 import { LogOutIcon } from "../components/Icons/LogOutIcon";
@@ -27,7 +28,7 @@ const routes: DrawerRoute[] = [
         component: Properties,
         access: "in",
         options: {
-            headerRight: () => <LogOutIcon />,
+            headerRight: () => <LogOutIcon onPress={() => AsyncStorage.removeItem("token")} />,
             headerLeft: () => null,
             drawerLabel: "Properties",
             swipeEnabled: false,

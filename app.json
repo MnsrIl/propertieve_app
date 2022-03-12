@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Log Prop",
-    "slug": "login-native",
+    "name": "Propertieve",
+    "slug": "propertieve",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

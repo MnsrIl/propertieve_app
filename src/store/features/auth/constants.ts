@@ -10,6 +10,13 @@ export const AUTH_SIGNUP_TYPES = {
     fulfilled: "auth/signup/fulfilled",
 };
 
+export const AUTH_SET_TOKEN_TYPE = "auth/setToken";
+
+export const AUTH_SET_TOKEN = (token: string) => ({
+    type: AUTH_SET_TOKEN_TYPE,
+    payload: { token },
+});
+
 export const AUTH_CLEAR_ERRORS = {
     type: "auth/clearErrors",
 };
