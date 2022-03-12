@@ -3,8 +3,9 @@
     "name": "Propertieve",
     "slug": "propertieve",
     "version": "1.0.0",
+    "sdkVersion": "44.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/propertieve_icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -17,13 +18,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ru.mnsr.propertieve",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/propertieve_adaptive_icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "ru.mnsr.propertieve",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
