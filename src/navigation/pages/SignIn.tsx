@@ -1,62 +1,51 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { NavigationProps } from "../../../types";
 import { SignLayout } from "../../components/Layouts/AuthLayouts/SignLayout";
 import { ToastVariants } from "../../components/Toast";
-import { BASE_API } from "../../utils/constants";
+import { selectAuthActionInfo, signIn } from "../../store/features/auth";
+import { useTSelector } from "../../store/hooks";
 
-const SignIn = ({ navigation, onTokenSet }: NavigationProps<"SignIn">) => {
+const SignIn = ({ navigation }: NavigationProps<"SignIn">) => {
+    const dispatch = useDispatch();
+    const signingInfo = useTSelector(selectAuthActionInfo);
+
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     const [toastInfo, setToastInfo] = React.useState({ message: "", variant: "error" });
-    const [signingIn, setSigningIn] = React.useState(false);
 
-    const handleSubmit = async () => {
+    const handlePressSubmit = async () => {
         setToastInfo({ ...toastInfo, message: "" });
 
         if (!email || !password) {
-            setToastInfo({ ...toastInfo, message: "You have to provide an email and password" });
-            return;
-        }
-
-        setSigningIn(true);
-
-        try {
-            const credentials = { email, password };
-
-            const response = await fetch(BASE_API + "/users/sign-in", {
-                method: "POST",
-                body: JSON.stringify(credentials),
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            return setToastInfo({
+                ...toastInfo,
+                message: "You have to provide an email and password",
             });
-            const data = await response.json();
-
-            if (data.error) {
-                onTokenSet("");
-                setToastInfo({ ...toastInfo, message: data.error });
-            } else {
-                onTokenSet(data.data);
-            }
-        } catch (e) {
-            console.error("ERROR");
-            setToastInfo({ ...toastInfo, message: JSON.stringify(e) });
-        } finally {
-            setSigningIn(false);
         }
+
+        const credentials = { email, password };
+
+        dispatch(signIn(credentials));
     };
+
+    React.useEffect(() => {
+        if (signingInfo.error) {
+            setToastInfo({ ...toastInfo, message: signingInfo.error });
+        }
+    }, [signingInfo.error]);
 
     return (
         <SignLayout
-            loading={signingIn}
+            loading={signingInfo.loading}
             toastMessage={toastInfo.message}
             toastVariant={toastInfo.variant as ToastVariants}
             title="Sign In"
             onChangeEmail={setEmail}
             onChangePassword={setPassword}
             onCaptionClick={() => navigation.navigate("SignUp")}
-            onPress={handleSubmit}
+            onPress={handlePressSubmit}
         />
     );
 };

@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import { FETCH_PROPERTIES_TYPES } from "./constants";
 import { PropertiesState, RootState } from "../../types";
+import { Property } from "../../../navigation/pages/Properties";
 
 const initialState: PropertiesState = {
     data: [],
@@ -22,6 +23,6 @@ const reducer = (state = initialState, action: AnyAction): PropertiesState => {
     }
 };
 
-const selectProperties = (state: RootState) => state.data;
+const selectProperties = (state: RootState): Property[] => state.properties.data;
 
 export { reducer as propertiesReducer, selectProperties };

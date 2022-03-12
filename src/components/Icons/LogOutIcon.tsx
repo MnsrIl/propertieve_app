@@ -1,14 +1,23 @@
 import React from "react";
-import { Image, TouchableOpacityProps } from "react-native";
+import { GestureResponderEvent, Image, TouchableOpacityProps } from "react-native";
 import styled from "styled-components/native";
+import { useDispatch } from "react-redux";
+import { AUTH_SIGNOUT } from "../../store/features/auth";
 
 const Icon = styled.TouchableOpacity`
     margin-right: 10px;
 `;
 
-const LogOutIcon = (props: TouchableOpacityProps) => {
+const LogOutIcon = ({ onPress, ...props }: TouchableOpacityProps) => {
+    const dispatch = useDispatch();
+
+    const handlePress = (event: GestureResponderEvent) => {
+        onPress?.(event);
+        dispatch(AUTH_SIGNOUT);
+    };
+
     return (
-        <Icon {...props}>
+        <Icon onPress={handlePress} {...props}>
             <Image
                 style={{ width: 23, height: 23, tintColor: "#131d3f" }}
                 source={{

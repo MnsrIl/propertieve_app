@@ -1,7 +1,8 @@
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
-import { propertiesReducer } from "./features/properties/reducer";
+import { reducers } from "./features";
+import { composeWithDevToolsDevelopmentOnly } from "@redux-devtools/extension";
 
-const store = createStore(propertiesReducer, applyMiddleware(thunk));
+const store = createStore(reducers, composeWithDevToolsDevelopmentOnly(applyMiddleware(thunk)));
 
 export { store };

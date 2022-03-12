@@ -9,7 +9,7 @@ export const FETCH_PROPERTIES_TYPES = {
 
 export const FETCH_PROPERTIES = {
     pending: { type: FETCH_PROPERTIES_TYPES.pending },
-    rejected: (error: string | unknown): AnyAction => ({
+    rejected: (error: string): AnyAction => ({
         type: FETCH_PROPERTIES_TYPES.rejected,
         payload: { error },
     }),
